@@ -5,7 +5,9 @@
 
 int main()
 {
+	// Initialization
 	sf::RenderWindow window(sf::VideoMode(800,600), "SFML-Pong");
+	window.setKeyRepeatEnabled(false);
 
 	sf::Font font;
 	if (!font.loadFromFile("FreeSansBold.ttf"))
@@ -48,6 +50,24 @@ int main()
 	quitButtonMsg.setCharacterSize(40);
 	quitButtonMsg.setPosition(10, 130);
 	quitButtonMsg.setString("Quit");
+
+	// Game Objects
+	sf::Text scoreboard;
+	scoreboard.setFont(font);
+	scoreboard.setCharacterSize(40);
+	scoreboard.setPosition(0, 0);
+	scoreboard.setString("0 | 0");
+
+	// Paddles
+	sf::RectangleShape paddleLeft(sf::Vector2f(10, 100));
+	paddleLeft.setPosition(10.f, window.getSize().y / 2.f - 50.f);
+	
+	sf::RectangleShape paddleRight(sf::Vector2f(10, 100));
+	paddleRight.setPosition(window.getSize().x - 10.f, window.getSize().y / 2.f - 50.f);
+
+	// Ball
+	sf::CircleShape ball(10.f);
+	ball.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
 	
 	sf::Event event;
 
@@ -61,35 +81,43 @@ int main()
 			switch (currentState)
 			{
 			case Menu:
-				if (event.type == sf::Event::MouseButtonPressed &&
-					event.mouseButton.button == sf::Mouse::Button::Left)
+				if (event.type == sf::Event::MouseButtonPressed)
 				{
-					sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-					if (playButton.getGlobalBounds().contains(mousePos))
+					if (event.mouseButton.button == sf::Mouse::Button::Left)
 					{
-						std::cout << "Play Game!" << std::endl;
-						currentState = Game;
+						sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+						if (playButton.getGlobalBounds().contains(mousePos))
+							currentState = Game;
+						if (quitButton.getGlobalBounds().contains(mousePos))
+							window.close();
 					}
-					if (quitButton.getGlobalBounds().contains(mousePos))
-						window.close();
 				}
 				break;
 
 			case Game:
-				if (event.type == sf::Event::MouseButtonPressed &&
-					event.mouseButton.button == sf::Mouse::Button::Left)
+				if (event.type == sf::Event::KeyPressed)
 				{
-					sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-					if (playButton.getGlobalBounds().contains(mousePos))
+					switch (event.key.code)
 					{
-						std::cout << "Start Screen!" << std::endl;
+					case sf::Keyboard::Space:
+						std::cout << "Game Start!" << std::endl;
+						break;
+
+					case sf::Keyboard::W:
+						std::cout << "Move Up!" << std::endl;
+						break;
+
+					case sf::Keyboard::S:
+						std::cout << "Move Down!" << std::endl;
+						break;
+
+					case sf::Keyboard::Escape:
 						currentState = Menu;
+						break;
 					}
 				}
 				break;
-
 			}
-
 		}
 
 		window.clear();
@@ -102,11 +130,14 @@ int main()
 			window.draw(playButtonMsg);
 			window.draw(quitButton);
 			window.draw(quitButtonMsg);
+			break;
 
 		case Game:
-			window.draw(playButton);
-			window.draw(playButtonMsg);
-
+			window.draw(scoreboard);
+			window.draw(ball);
+			window.draw(paddleLeft);
+			window.draw(paddleRight);
+			break;
 		}
 
 		window.display();
