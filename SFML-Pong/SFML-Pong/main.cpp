@@ -14,6 +14,10 @@ int main()
 		return 1;
 	}
 
+	// Game State
+	enum GameState { Menu, Game };
+	GameState currentState = Menu;
+
 	// Start Screen
 	sf::Text title;
 	title.setFont(font);
@@ -53,24 +57,57 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-			if (event.type == sf::Event::MouseButtonPressed && 
-				event.mouseButton.button == sf::Mouse::Button::Left)
+
+			switch (currentState)
 			{
-				sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-				if (playButton.getGlobalBounds().contains(mousePos))
-					std::cout << "Play Game!" << std::endl;
-				if (quitButton.getGlobalBounds().contains(mousePos))
-					window.close();
+			case Menu:
+				if (event.type == sf::Event::MouseButtonPressed &&
+					event.mouseButton.button == sf::Mouse::Button::Left)
+				{
+					sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+					if (playButton.getGlobalBounds().contains(mousePos))
+					{
+						std::cout << "Play Game!" << std::endl;
+						currentState = Game;
+					}
+					if (quitButton.getGlobalBounds().contains(mousePos))
+						window.close();
+				}
+				break;
+
+			case Game:
+				if (event.type == sf::Event::MouseButtonPressed &&
+					event.mouseButton.button == sf::Mouse::Button::Left)
+				{
+					sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+					if (playButton.getGlobalBounds().contains(mousePos))
+					{
+						std::cout << "Start Screen!" << std::endl;
+						currentState = Menu;
+					}
+				}
+				break;
+
 			}
+
 		}
 
 		window.clear();
 
-		window.draw(title);
-		window.draw(playButton);
-		window.draw(playButtonMsg);
-		window.draw(quitButton);
-		window.draw(quitButtonMsg);
+		switch (currentState)
+		{
+		case Menu:
+			window.draw(title);
+			window.draw(playButton);
+			window.draw(playButtonMsg);
+			window.draw(quitButton);
+			window.draw(quitButtonMsg);
+
+		case Game:
+			window.draw(playButton);
+			window.draw(playButtonMsg);
+
+		}
 
 		window.display();
 	}
