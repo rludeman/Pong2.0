@@ -128,6 +128,9 @@
   <ItemGroup>
     <Font Include="FreeSansBold.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StartScreen.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
