@@ -1,6 +1,6 @@
 #include "StartScreen.h"
 
-StartScreen::StartScreen(const sf::Font& font)
+StartScreen::StartScreen(const sf::Font& font) // TODO layout components better. Consider creating class for buttons
 {
 	// Title
 	title.setFont(font);
@@ -49,7 +49,7 @@ void StartScreen::handleEvents(const sf::Event& event, sf::RenderWindow& window,
 	}
 }
 
-void StartScreen::draw(sf::RenderWindow& window)
+void StartScreen::draw(sf::RenderWindow& window) // TODO make 'drawable'
 {
 	window.draw(title);
 	window.draw(playButton.box);

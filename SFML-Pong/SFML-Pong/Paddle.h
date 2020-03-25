@@ -10,13 +10,13 @@ public:
 	Paddle();
 	~Paddle();
 
-	const float DefaultSpeed = 250.f; 
+	const float DefaultSpeed = 250.f; // TODO make static
 
 	void moveUp();
 	void moveDown();
 	void update(sf::Time deltaTime, const sf::RenderWindow& window);
 
 private:
-	sf::Vector2f velocity;
+	sf::Vector2f velocity; 
 };
 

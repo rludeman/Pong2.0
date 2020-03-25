@@ -14,10 +14,10 @@ Paddle::~Paddle()
 void Paddle::moveUp() { velocity -= sf::Vector2f(0.f, DefaultSpeed); }
 void Paddle::moveDown() { velocity += sf::Vector2f(0.f, DefaultSpeed); }
 
-void Paddle::update(sf::Time deltaTime, const sf::RenderWindow & window)
+void Paddle::update(sf::Time deltaTime, const sf::RenderWindow & window) // TODO correct lower boundary collision
 {
 	sf::Vector2f deltaPos = velocity * deltaTime.asSeconds();
-	setPosition(getPosition() + deltaPos);
+	setPosition(getPosition() + deltaPos); // TODO use move instead
 	if (getPosition().y < 0)
 		setPosition(getPosition().x, 0.f);
 	else if (getPosition().y > window.getSize().y)

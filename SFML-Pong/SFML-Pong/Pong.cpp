@@ -4,8 +4,9 @@
 
 Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window) : fontPtr(fontPtr)
 {
+	// TODO move default initialization to constructors
 	// Paddles
-	paddleA.setSize(sf::Vector2f(10, 100));
+	paddleA.setSize(sf::Vector2f(10, 100)); 
 	paddleB.setSize(sf::Vector2f(10, 100));
 	paddleA.setPosition(10.f, window.getSize().y / 2.f - 50.f);
 	paddleB.setPosition(window.getSize().x - 10.f, window.getSize().y / 2.f - 50.f);
@@ -27,7 +28,7 @@ void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window, Game
 		switch (event.key.code)
 		{
 		case sf::Keyboard::Space:
-			ball.setVelocity(sf::Vector2f(0.f, Ball::DefaultSpeed));
+			ball.setVelocity(sf::Vector2f(0.f, Ball::DefaultSpeed)); // TODO disable after launch
 			break;
 
 		case sf::Keyboard::W:
@@ -59,14 +60,14 @@ void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window, Game
 	}
 }
 
-void Pong::update(sf::Time deltaTime, const sf::RenderWindow & window)
+void Pong::update(sf::Time deltaTime, const sf::RenderWindow & window) // TODO implement scoring/winning
 {
 	paddleA.update(deltaTime, window);
 	paddleB.update(deltaTime, window);
 	ball.update(deltaTime, window);
 }
 
-void Pong::draw(sf::RenderWindow & window)
+void Pong::draw(sf::RenderWindow & window) // TODO make components 'drawable' so we can "window.draw(game)"
 {
 	sf::Text score(std::to_string(scoreA) + " | " + std::to_string(scoreB), *fontPtr, 40);
 	window.draw(score);

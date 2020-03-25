@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>	// TODO cleanup unnecessary libraries
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -7,6 +7,7 @@
 #include "Pong.h"
 #include "GameState.h"
 
+// TODO Document everything!!!
 int main()
 {
 	// Initialization
