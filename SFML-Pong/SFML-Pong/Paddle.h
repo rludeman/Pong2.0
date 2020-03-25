@@ -10,7 +10,7 @@ public:
 	Paddle();
 	~Paddle();
 
-	const float DefaultSpeed = 250.f; // TODO make static
+	static const float DefaultSpeed; // TODO make static
 
 	void moveUp();
 	void moveDown();
