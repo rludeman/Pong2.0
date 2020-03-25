@@ -7,7 +7,7 @@
 #include "Paddle.h"
 #include "AIController.h"
 
-class Pong // TODO Create AI controller
+class Pong
 {
 public:
 	Pong(const sf::Font* fontPtr, const sf::RenderWindow& window);
@@ -17,6 +17,9 @@ public:
 	void update(sf::Time deltaTime, const sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 	void reset(const sf::RenderWindow& window);
+
+private:
+	bool checkScore(const Ball& ball, const sf::RenderWindow& window);
 
 private:	// TODO add background
 	int scoreA;

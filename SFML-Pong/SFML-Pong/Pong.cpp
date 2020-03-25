@@ -69,6 +69,9 @@ void Pong::update(sf::Time deltaTime, const sf::RenderWindow & window) // TODO i
 	ai.udpate(ball);
 	paddleA.update(deltaTime, window);
 	paddleB.update(deltaTime, window);
+	
+	if (checkScore(ball, window))
+		reset(window);
 }
 
 void Pong::draw(sf::RenderWindow & window) // TODO make components 'drawable' so we can "window.draw(game)"
@@ -86,4 +89,19 @@ void Pong::reset(const sf::RenderWindow& window)
 	paddleB.setPosition(window.getSize().x - 10.f, window.getSize().y / 2.f - 50.f);
 	ball.setVelocity(sf::Vector2f(0.f, 0.f));
 	ball.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
+}
+
+bool Pong::checkScore(const Ball& ball, const sf::RenderWindow& window)
+{
+	if (ball.getPosition().x < 0.f)
+	{
+		++scoreB;
+		return true;
+	}
+	if (ball.getPosition().x > window.getSize().x)
+	{
+		++scoreA;
+		return true;
+	}
+	return false;
 }
