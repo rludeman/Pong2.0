@@ -6,12 +6,13 @@ Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window) : fontPtr(fo
 {
 	// Paddles
 	paddleA.setSize(sf::Vector2f(10, 100));
-	paddleA.setPosition(10.f, window.getSize().y / 2.f - 50.f);
 	paddleB.setSize(sf::Vector2f(10, 100));
+	paddleA.setPosition(10.f, window.getSize().y / 2.f - 50.f);
 	paddleB.setPosition(window.getSize().x - 10.f, window.getSize().y / 2.f - 50.f);
 
 	// Ball
 	ball.setRadius(10.f);
+	ball.setOrigin(ball.getRadius(), ball.getRadius());
 	ball.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
 }
 
@@ -26,7 +27,7 @@ void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window, Game
 		switch (event.key.code)
 		{
 		case sf::Keyboard::Space:
-			std::cout << "Game Start!" << std::endl;
+			ball.setVelocity(sf::Vector2f(0.f, Ball::DefaultSpeed));
 			break;
 
 		case sf::Keyboard::W:
@@ -62,6 +63,7 @@ void Pong::update(sf::Time deltaTime, const sf::RenderWindow & window)
 {
 	paddleA.update(deltaTime, window);
 	paddleB.update(deltaTime, window);
+	ball.update(deltaTime, window);
 }
 
 void Pong::draw(sf::RenderWindow & window)
@@ -71,4 +73,12 @@ void Pong::draw(sf::RenderWindow & window)
 	window.draw(ball);
 	window.draw(paddleA);
 	window.draw(paddleB);
+}
+
+void Pong::reset(const sf::RenderWindow& window)
+{
+	paddleA.setPosition(10.f, window.getSize().y / 2.f - 50.f);
+	paddleB.setPosition(window.getSize().x - 10.f, window.getSize().y / 2.f - 50.f);
+	ball.setVelocity(sf::Vector2f(0.f, 0.f));
+	ball.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
 }

@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Paddle.cpp" />
     <ClCompile Include="Pong.cpp" />
@@ -132,6 +133,7 @@
     <Font Include="FreeSansBold.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ball.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Paddle.h" />
     <ClInclude Include="Pong.h" />

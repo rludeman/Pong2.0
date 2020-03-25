@@ -47,6 +47,8 @@ int main()
 				
 			case Game:
 				game.handleEvents(event, window, currentState);
+				if (currentState == Menu) // Just left game screen
+					game.reset(window);
 				break;
 			}
 		}
