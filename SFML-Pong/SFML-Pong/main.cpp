@@ -61,7 +61,7 @@ int main()
 		switch (currentState)
 		{
 		case Menu:
-			menu.draw(window);
+			menu.draw(window); // TODO wrap up game-states in class.  Reevaluate what's in Pong and what may belong outside it.
 			break;
 
 		case Game:

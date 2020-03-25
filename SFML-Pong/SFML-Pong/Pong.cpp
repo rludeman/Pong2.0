@@ -2,9 +2,9 @@
 #include "Pong.h"
 
 
-Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window) : fontPtr(fontPtr)
+Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window) : fontPtr(fontPtr) // TODO Improve game-state and global object management
 {
-	// TODO move default initialization to constructors
+	// TODO move default initialization to constructors and add setters/getters
 	// Paddles
 	paddleA.setSize(sf::Vector2f(10, 100)); 
 	paddleB.setSize(sf::Vector2f(10, 100));
@@ -68,7 +68,7 @@ void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window, Game
 	}
 }
 
-void Pong::update(sf::Time deltaTime, const sf::RenderWindow & window) // TODO implement scoring/winning
+void Pong::update(sf::Time deltaTime, const sf::RenderWindow & window) // TODO implement update queue to handle physics/collisions
 {
 	ball.update(deltaTime, window, paddleA, paddleB);
 	ai.udpate(ball);
@@ -88,7 +88,7 @@ void Pong::draw(sf::RenderWindow & window) // TODO make components 'drawable' so
 	window.draw(paddleB);
 	if (scoreA >= 5)
 	{
-		winMsg.setString("You Win!");
+		winMsg.setString("You Win!"); // TODO End and reset game (score) with winning
 		window.draw(winMsg);
 	}
 	if (scoreB >= 5)

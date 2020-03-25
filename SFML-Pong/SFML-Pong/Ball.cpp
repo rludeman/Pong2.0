@@ -3,6 +3,10 @@
 
 const float Ball::DefaultSpeed = 200.f; // TODO tune speed
 
+// TODO add physics like spin, acceleration, etc.
+
+// TODO add visual 'highlight' to ball to see spin
+
 Ball::Ball(): velocity(0.f, 0.f)
 {
 }
@@ -11,7 +15,7 @@ Ball::~Ball()
 {
 }
 
-void Ball::update(const sf::Time deltaTime, const sf::RenderWindow & window, sf::RectangleShape paddleA, sf::RectangleShape paddleB) // TODO improve paddle collision
+void Ball::update(const sf::Time deltaTime, const sf::RenderWindow & window, sf::RectangleShape paddleA, sf::RectangleShape paddleB) // TODO Prevent ball from gettting stuck in paddles/boundary
 {
 	sf::Vector2f deltaPos = velocity * deltaTime.asSeconds();
 	move(deltaPos);
