@@ -124,13 +124,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="StartScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="FreeSansBold.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameState.h" />
     <ClInclude Include="StartScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
