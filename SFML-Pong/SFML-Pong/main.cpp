@@ -3,6 +3,9 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
+#include "StartScreen.h"
+#include "GameState.h"
+
 int main()
 {
 	// Initialization
@@ -16,40 +19,9 @@ int main()
 		return 1;
 	}
 
-	// Game State
-	enum GameState { Menu, Game };
 	GameState currentState = Menu;
 
-	// Start Screen
-	sf::Text title;
-	title.setFont(font);
-	title.setCharacterSize(50);
-	title.setPosition(10, 10);
-	title.setString("SFML-Pong!");
-
-	// Play Button
-	sf::RectangleShape playButton(sf::Vector2f(150, 50));
-	playButton.setPosition(10, 70);
-	playButton.setFillColor(sf::Color::Black);
-	playButton.setOutlineThickness(2);
-
-	sf::Text playButtonMsg;
-	playButtonMsg.setFont(font);
-	playButtonMsg.setCharacterSize(40);
-	playButtonMsg.setPosition(10, 70);
-	playButtonMsg.setString("Play");
-
-	// Quit Button
-	sf::RectangleShape quitButton(sf::Vector2f(150, 50));
-	quitButton.setPosition(10, 130);
-	quitButton.setFillColor(sf::Color::Black);
-	quitButton.setOutlineThickness(2);
-
-	sf::Text quitButtonMsg;
-	quitButtonMsg.setFont(font);
-	quitButtonMsg.setCharacterSize(40);
-	quitButtonMsg.setPosition(10, 130);
-	quitButtonMsg.setString("Quit");
+	StartScreen menu(font);
 
 	// Game Objects
 	sf::Text scoreboard;
@@ -81,19 +53,9 @@ int main()
 			switch (currentState)
 			{
 			case Menu:
-				if (event.type == sf::Event::MouseButtonPressed)
-				{
-					if (event.mouseButton.button == sf::Mouse::Button::Left)
-					{
-						sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
-						if (playButton.getGlobalBounds().contains(mousePos))
-							currentState = Game;
-						if (quitButton.getGlobalBounds().contains(mousePos))
-							window.close();
-					}
-				}
+				menu.handleEvents(event, window, currentState);
 				break;
-
+				
 			case Game:
 				if (event.type == sf::Event::KeyPressed)
 				{
@@ -125,11 +87,7 @@ int main()
 		switch (currentState)
 		{
 		case Menu:
-			window.draw(title);
-			window.draw(playButton);
-			window.draw(playButtonMsg);
-			window.draw(quitButton);
-			window.draw(quitButtonMsg);
+			menu.draw(window);
 			break;
 
 		case Game:
