@@ -15,6 +15,9 @@ Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window) : fontPtr(fo
 	ball.setRadius(10.f);
 	ball.setOrigin(ball.getRadius(), ball.getRadius());
 	ball.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
+
+	// AI Controller
+	ai.setPaddle(&paddleB);
 }
 
 Pong::~Pong()
@@ -62,9 +65,10 @@ void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window, Game
 
 void Pong::update(sf::Time deltaTime, const sf::RenderWindow & window) // TODO implement scoring/winning
 {
+	ball.update(deltaTime, window, paddleA, paddleB);
+	ai.udpate(ball);
 	paddleA.update(deltaTime, window);
 	paddleB.update(deltaTime, window);
-	ball.update(deltaTime, window, paddleA, paddleB);
 }
 
 void Pong::draw(sf::RenderWindow & window) // TODO make components 'drawable' so we can "window.draw(game)"

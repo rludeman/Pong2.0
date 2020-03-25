@@ -11,8 +11,17 @@ Paddle::~Paddle()
 {
 }
 
-void Paddle::moveUp() { velocity -= sf::Vector2f(0.f, DefaultSpeed); }
-void Paddle::moveDown() { velocity += sf::Vector2f(0.f, DefaultSpeed); }
+void Paddle::moveUp() 
+{ 
+	if (velocity.y >= 0.f)
+		velocity -= sf::Vector2f(0.f, DefaultSpeed); 
+}
+
+void Paddle::moveDown() 
+{
+	if (velocity.y <= 0.f)
+		velocity += sf::Vector2f(0.f, DefaultSpeed);
+}
 
 void Paddle::update(sf::Time deltaTime, const sf::RenderWindow & window) 
 {

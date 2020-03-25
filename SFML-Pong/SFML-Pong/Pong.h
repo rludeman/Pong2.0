@@ -5,6 +5,7 @@
 #include "GameState.h"
 #include "Ball.h"
 #include "Paddle.h"
+#include "AIController.h"
 
 class Pong // TODO Create AI controller
 {
@@ -24,5 +25,6 @@ private:	// TODO add background
 	Ball ball;
 	Paddle paddleA;
 	Paddle paddleB;
+	AIController ai;
 };
 
