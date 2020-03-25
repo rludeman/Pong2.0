@@ -18,6 +18,11 @@ Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window) : fontPtr(fo
 
 	// AI Controller
 	ai.setPaddle(&paddleB);
+
+	// Winner Message
+	winMsg.setFont(*fontPtr);
+	winMsg.setCharacterSize(100);
+	winMsg.setPosition(200, 200);
 }
 
 Pong::~Pong()
@@ -81,6 +86,16 @@ void Pong::draw(sf::RenderWindow & window) // TODO make components 'drawable' so
 	window.draw(ball);
 	window.draw(paddleA);
 	window.draw(paddleB);
+	if (scoreA >= 5)
+	{
+		winMsg.setString("You Win!");
+		window.draw(winMsg);
+	}
+	if (scoreB >= 5)
+	{
+		winMsg.setString("You Lose");
+		window.draw(winMsg);
+	}
 }
 
 void Pong::reset(const sf::RenderWindow& window)

@@ -25,6 +25,7 @@ private:	// TODO add background
 	int scoreA;
 	int scoreB;
 	const sf::Font* fontPtr;
+	sf::Text winMsg;
 	Ball ball;
 	Paddle paddleA;
 	Paddle paddleB;
