@@ -11,7 +11,7 @@ public:
 
 	static const float DefaultSpeed;
 
-	void update(const sf::Time deltaTime, const sf::RenderWindow& window);
+	void update(const sf::Time deltaTime, const sf::RenderWindow& window, sf::RectangleShape paddleA, sf::RectangleShape paddleB);
 	void setVelocity(sf::Vector2f newVelocity);
 	sf::Vector2f getVelocity();
 

@@ -28,7 +28,7 @@ void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window, Game
 		switch (event.key.code)
 		{
 		case sf::Keyboard::Space:
-			ball.setVelocity(sf::Vector2f(0.f, Ball::DefaultSpeed)); // TODO disable after launch
+			ball.setVelocity(sf::Vector2f(-Ball::DefaultSpeed, Ball::DefaultSpeed)); // TODO disable after launch
 			break;
 
 		case sf::Keyboard::W:
@@ -64,7 +64,7 @@ void Pong::update(sf::Time deltaTime, const sf::RenderWindow & window) // TODO i
 {
 	paddleA.update(deltaTime, window);
 	paddleB.update(deltaTime, window);
-	ball.update(deltaTime, window);
+	ball.update(deltaTime, window, paddleA, paddleB);
 }
 
 void Pong::draw(sf::RenderWindow & window) // TODO make components 'drawable' so we can "window.draw(game)"
