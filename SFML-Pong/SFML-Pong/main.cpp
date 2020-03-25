@@ -26,6 +26,9 @@ int main()
 
 	Pong game(&font, window);
 	
+	sf::Clock loopClock; // Clock starts automatically
+	sf::Time deltaTime;	
+
 	sf::Event event;
 
 	// Game loop
@@ -48,6 +51,8 @@ int main()
 			}
 		}
 
+		deltaTime = loopClock.restart();
+
 		window.clear();
 
 		switch (currentState)
@@ -57,6 +62,7 @@ int main()
 			break;
 
 		case Game:
+			game.update(deltaTime, window);
 			game.draw(window);
 			break;
 		}

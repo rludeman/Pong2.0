@@ -30,11 +30,11 @@ void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window, Game
 			break;
 
 		case sf::Keyboard::W:
-			std::cout << "Move Up!" << std::endl;
+			paddleA.moveUp();
 			break;
 
 		case sf::Keyboard::S:
-			std::cout << "Move Down!" << std::endl;
+			paddleA.moveDown();
 			break;
 
 		case sf::Keyboard::Escape:
@@ -42,6 +42,26 @@ void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window, Game
 			break;
 		}
 	}
+	else if (event.type == sf::Event::KeyReleased)
+	{
+		switch (event.key.code)
+		{
+		case sf::Keyboard::W:
+			paddleA.moveDown();
+			break;
+
+		case sf::Keyboard::S:
+			paddleA.moveUp();
+			break;
+
+		}
+	}
+}
+
+void Pong::update(sf::Time deltaTime, const sf::RenderWindow & window)
+{
+	paddleA.update(deltaTime, window);
+	paddleB.update(deltaTime, window);
 }
 
 void Pong::draw(sf::RenderWindow & window)
