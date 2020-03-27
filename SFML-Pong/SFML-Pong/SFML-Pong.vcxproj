@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="AIController.h" />
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="GameLevel.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Paddle.h" />
     <ClInclude Include="Pong.h" />

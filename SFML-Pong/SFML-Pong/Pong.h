@@ -7,6 +7,7 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "AIController.h"
+#include "GameLevel.h"
 
 
 class Pong
@@ -26,7 +27,6 @@ private:
 	bool checkScore(const Ball& ball, const sf::RenderWindow& window);
 
 private:	// TODO add background
-	StartScreen menu;	// TODO Wrap game state classes ("Levels") in class
 	GameState currentState;
 	int scoreA;	// TODO wrap scoreboard in class
 	int scoreB;
@@ -36,5 +36,10 @@ private:	// TODO add background
 	Paddle paddleA;
 	Paddle paddleB;
 	AIController ai;
+
+	// Game States/Levels
+	GameLevel* currentLevel;
+	StartScreen menu;	// TODO Wrap game state classes ("Levels") in class
+	
 };
 
