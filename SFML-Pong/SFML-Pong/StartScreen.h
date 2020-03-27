@@ -3,12 +3,14 @@
 
 #include "GameState.h"
 
+
 class StartScreen
 {
 public:
-	StartScreen(const sf::Font& font);
+	StartScreen();
 	~StartScreen();
 
+	void setFont(const sf::Font& font);
 	void handleEvents(const sf::Event& event, sf::RenderWindow& window, GameState& currentState);
 	void draw(sf::RenderWindow& window);
 

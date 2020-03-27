@@ -2,8 +2,11 @@
 #include "Pong.h"
 
 
-Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window) : fontPtr(fontPtr) // TODO Improve game-state and global object management
+Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window) : currentState(Menu), fontPtr(fontPtr) // TODO Improve game-state and global object management
 {
+	// Start Menu
+	menu.setFont(*fontPtr);
+
 	// TODO move default initialization to constructors and add setters/getters
 	// Paddles
 	paddleA.setSize(sf::Vector2f(10, 100)); 
@@ -29,42 +32,52 @@ Pong::~Pong()
 {
 }
 
-void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window, GameState & currentState)
+void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window)
 {
-	if (event.type == sf::Event::KeyPressed)
+	switch (currentState)
 	{
-		switch (event.key.code)
+	case Menu:
+		menu.handleEvents(event, window, currentState);
+		break;
+
+	case Game:
+		if (event.type == sf::Event::KeyPressed)
 		{
-		case sf::Keyboard::Space:
-			ball.setVelocity(sf::Vector2f(-Ball::DefaultSpeed, Ball::DefaultSpeed)); // TODO disable after launch
-			break;
+			switch (event.key.code)
+			{
+			case sf::Keyboard::Space:
+				ball.setVelocity(sf::Vector2f(-Ball::DefaultSpeed, Ball::DefaultSpeed)); // TODO disable after launch
+				break;
 
-		case sf::Keyboard::W:
-			paddleA.moveUp();
-			break;
+			case sf::Keyboard::W:
+				paddleA.moveUp();
+				break;
 
-		case sf::Keyboard::S:
-			paddleA.moveDown();
-			break;
+			case sf::Keyboard::S:
+				paddleA.moveDown();
+				break;
 
-		case sf::Keyboard::Escape:
-			currentState = Menu;
-			break;
+			case sf::Keyboard::Escape:
+				currentState = Menu;
+				reset(window);
+				break;
+			}
 		}
-	}
-	else if (event.type == sf::Event::KeyReleased)
-	{
-		switch (event.key.code)
+		else if (event.type == sf::Event::KeyReleased)
 		{
-		case sf::Keyboard::W:
-			paddleA.moveDown();
-			break;
+			switch (event.key.code)
+			{
+			case sf::Keyboard::W:
+				paddleA.moveDown();
+				break;
 
-		case sf::Keyboard::S:
-			paddleA.moveUp();
-			break;
+			case sf::Keyboard::S:
+				paddleA.moveUp();
+				break;
 
+			}
 		}
+		break;
 	}
 }
 
@@ -81,20 +94,28 @@ void Pong::update(sf::Time deltaTime, const sf::RenderWindow & window) // TODO i
 
 void Pong::draw(sf::RenderWindow & window) // TODO make components 'drawable' so we can "window.draw(game)"
 {
-	sf::Text score(std::to_string(scoreA) + " | " + std::to_string(scoreB), *fontPtr, 40);
-	window.draw(score);
-	window.draw(ball);
-	window.draw(paddleA);
-	window.draw(paddleB);
-	if (scoreA >= 5)
+	switch (currentState)
 	{
-		winMsg.setString("You Win!"); // TODO End and reset game (score) with winning
-		window.draw(winMsg);
-	}
-	if (scoreB >= 5)
-	{
-		winMsg.setString("You Lose");
-		window.draw(winMsg);
+	case Menu:
+		menu.draw(window); // TODO wrap up game-states in class.  Reevaluate what's in Pong and what may belong outside it.
+		break;
+
+	case Game:
+		sf::Text score(std::to_string(scoreA) + " | " + std::to_string(scoreB), *fontPtr, 40);
+		window.draw(score);
+		window.draw(ball);
+		window.draw(paddleA);
+		window.draw(paddleB);
+		if (scoreA >= 5)
+		{
+			winMsg.setString("You Win!"); // TODO End and reset game (score) with winning
+			window.draw(winMsg);
+		}
+		if (scoreB >= 5)
+		{
+			winMsg.setString("You Lose");
+			window.draw(winMsg);
+		}
 	}
 }
 
@@ -105,6 +126,8 @@ void Pong::reset(const sf::RenderWindow& window)
 	ball.setVelocity(sf::Vector2f(0.f, 0.f));
 	ball.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
 }
+
+GameState Pong::getState() { return currentState; }
 
 bool Pong::checkScore(const Ball& ball, const sf::RenderWindow& window)
 {

@@ -1,9 +1,8 @@
 #include "StartScreen.h"
 
-StartScreen::StartScreen(const sf::Font& font) // TODO layout components better. Consider creating class for buttons
+StartScreen::StartScreen() // TODO layout components better. Consider creating class for buttons
 {
 	// Title
-	title.setFont(font);
 	title.setCharacterSize(50);
 	title.setPosition(10, 10);
 	title.setString("SFML-Pong!");
@@ -13,7 +12,6 @@ StartScreen::StartScreen(const sf::Font& font) // TODO layout components better.
 	playButton.box.setPosition(10, 70);
 	playButton.box.setFillColor(sf::Color::Black);
 	playButton.box.setOutlineThickness(2);
-	playButton.msg.setFont(font);
 	playButton.msg.setCharacterSize(40);
 	playButton.msg.setPosition(10, 70);
 	playButton.msg.setString("Play");
@@ -23,7 +21,6 @@ StartScreen::StartScreen(const sf::Font& font) // TODO layout components better.
 	quitButton.box.setPosition(10, 130);
 	quitButton.box.setFillColor(sf::Color::Black);
 	quitButton.box.setOutlineThickness(2);
-	quitButton.msg.setFont(font);
 	quitButton.msg.setCharacterSize(40);
 	quitButton.msg.setPosition(10, 130);
 	quitButton.msg.setString("Quit");
@@ -32,6 +29,13 @@ StartScreen::StartScreen(const sf::Font& font) // TODO layout components better.
 
 StartScreen::~StartScreen()
 {
+}
+
+void StartScreen::setFont(const sf::Font & font) 
+{ 
+	title.setFont(font); 
+	playButton.msg.setFont(font);
+	quitButton.msg.setFont(font);
 }
 
 void StartScreen::handleEvents(const sf::Event& event, sf::RenderWindow& window, GameState& currentState)

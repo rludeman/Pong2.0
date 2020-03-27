@@ -3,11 +3,9 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "StartScreen.h"
 #include "Pong.h"
-#include "GameState.h"
 
-// TODO Document everything!!!
+
 int main()
 {
 	// Initialization
@@ -15,15 +13,11 @@ int main()
 	window.setKeyRepeatEnabled(false);
 
 	sf::Font font;
-	if (!font.loadFromFile("FreeSansBold.ttf"))
+	if (!font.loadFromFile("FreeSansBold.ttf")) // TODO create class for handling assets
 	{
 		std::cout << "Failed to load font." << std::endl;
 		return 1;
 	}
-
-	GameState currentState = Menu;
-
-	StartScreen menu(font);
 
 	Pong game(&font, window);
 	
@@ -40,35 +34,15 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 
-			switch (currentState)
-			{
-			case Menu:
-				menu.handleEvents(event, window, currentState);
-				break;
-				
-			case Game:
-				game.handleEvents(event, window, currentState);
-				if (currentState == Menu) // Just left game screen
-					game.reset(window);
-				break;
-			}
+			game.handleEvents(event, window);
 		}
 
 		deltaTime = loopClock.restart();
 
 		window.clear();
 
-		switch (currentState)
-		{
-		case Menu:
-			menu.draw(window); // TODO wrap up game-states in class.  Reevaluate what's in Pong and what may belong outside it.
-			break;
-
-		case Game:
-			game.update(deltaTime, window);
-			game.draw(window);
-			break;
-		}
+		game.update(deltaTime, window);
+		game.draw(window);
 
 		window.display();
 	}
