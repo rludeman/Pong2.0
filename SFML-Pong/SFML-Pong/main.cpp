@@ -12,8 +12,9 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(800,600), "SFML-Pong");
 	window.setKeyRepeatEnabled(false);
 
-	sf::Font font;
-	if (!font.loadFromFile("FreeSansBold.ttf")) // TODO create class for handling assets
+	// Load shared assets
+	sf::Font font;	// TODO create class for handling assets
+	if (!font.loadFromFile("FreeSansBold.ttf"))
 	{
 		std::cout << "Failed to load font." << std::endl;
 		return 1;
@@ -21,9 +22,9 @@ int main()
 
 	Pong game(&font, window);
 	
-	sf::Clock loopClock; // Clock starts automatically
-	sf::Time deltaTime;	
-
+	// Instantiate loop objects
+	sf::Clock loopClock;
+	sf::Time deltaTime;
 	sf::Event event;
 
 	// Game loop
@@ -34,16 +35,23 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 
+			// Handle game events
 			game.handleEvents(event, window);
 		}
 
+		// Capture time since last loop
 		deltaTime = loopClock.restart();
 
+		// Clear buffer
 		window.clear();
 
+		// Update game state and objects
 		game.update(deltaTime, window);
+
+		// Draw game objects to buffer
 		game.draw(window);
 
+		// Render buffer to window
 		window.display();
 	}
 

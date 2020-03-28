@@ -31,7 +31,7 @@ StartScreen::~StartScreen()
 {
 }
 
-void StartScreen::setFont(const sf::Font & font) 
+void StartScreen::setFont(const sf::Font& font) 
 { 
 	title.setFont(font); 
 	playButton.msg.setFont(font);
