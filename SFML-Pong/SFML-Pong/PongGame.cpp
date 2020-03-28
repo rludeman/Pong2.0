@@ -11,7 +11,7 @@ PongGame::~PongGame()
 {
 }
 
-void PongGame::handleEvents(const sf::Event & event, sf::RenderWindow & window)
+Levels PongGame::handleEvents(const sf::Event & event, sf::RenderWindow & window)
 {
 	if (event.type == sf::Event::KeyPressed)
 	{
@@ -30,9 +30,8 @@ void PongGame::handleEvents(const sf::Event & event, sf::RenderWindow & window)
 			break;
 
 		case sf::Keyboard::Escape:
-			// currentState = Menu; TODO replace state change with "GameLevel" change
 			reset(window);
-			break;
+			return Levels::Menu;
 		}
 	}
 	else if (event.type == sf::Event::KeyReleased)
@@ -49,6 +48,7 @@ void PongGame::handleEvents(const sf::Event & event, sf::RenderWindow & window)
 
 		}
 	}
+	return Levels::Game;
 }
 
 void PongGame::update(const sf::Time deltaTime, const sf::RenderWindow& window)

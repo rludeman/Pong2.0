@@ -1,4 +1,5 @@
 #include "StartScreen.h"
+#include "Pong.h"
 
 StartScreen::StartScreen() // TODO layout components better. Consider creating class for buttons
 {
@@ -38,7 +39,7 @@ void StartScreen::setFont(const sf::Font& font)
 	quitButton.msg.setFont(font);
 }
 
-void StartScreen::handleEvents(const sf::Event& event, sf::RenderWindow& window)
+Levels StartScreen::handleEvents(const sf::Event& event, sf::RenderWindow& window)
 {
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
@@ -46,12 +47,13 @@ void StartScreen::handleEvents(const sf::Event& event, sf::RenderWindow& window)
 		{
 			sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 			if (playButton.box.getGlobalBounds().contains(mousePos))
-				((void)0); // NO-OP
+				return Levels::Game;
 				// currentState = Game; TODO replace state change with "GameLevel" change
 			if (quitButton.box.getGlobalBounds().contains(mousePos))
 				window.close();
 		}
 	}
+	return Levels::Menu;
 }
 
 void StartScreen::draw(sf::RenderWindow& window) // TODO make 'drawable'

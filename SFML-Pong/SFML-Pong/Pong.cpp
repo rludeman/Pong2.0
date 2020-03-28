@@ -2,10 +2,14 @@
 #include "Pong.h"
 
 
-Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window) : currentState(Menu)	
+Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window)
 {
 	menu.setFont(*fontPtr);	// TODO handle fonts/assets more uniformly
 	game.init(fontPtr, window);
+
+	// Initialize game state
+	currentState = Levels::Menu;
+	currentLevel = &menu;
 }
 
 Pong::~Pong()
@@ -14,33 +18,33 @@ Pong::~Pong()
 
 void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window)
 {
-	switch (currentState)
-	{
-	case Menu:
-		menu.handleEvents(event, window);
-		break;
-
-	case Game:
-		game.handleEvents(event, window);
-		break;
-	}
+	Levels nextState;
+	nextState = currentLevel->handleEvents(event, window);
+	if (nextState != currentState)
+		changeLevel(nextState);
 }
 
 void Pong::update(sf::Time deltaTime, const sf::RenderWindow& window) // TODO implement physics/collisions
 {
-	game.update(deltaTime, window);
+	currentLevel->update(deltaTime, window);
 }
 
 void Pong::draw(sf::RenderWindow & window) // TODO make components 'drawable' so we can "window.draw(game)"
 {
-	switch (currentState)
-	{
-	case Menu:
-		menu.draw(window); // TODO wrap up game-states in class.  Reevaluate what's in Pong and what may belong outside it.
-		break;
+	currentLevel->draw(window);
+}
 
+void Pong::changeLevel(Levels level)
+{
+	switch (level)
+	{	// TODO include initialization/destruction with level switch
+	case Menu:
+		currentState = Levels::Menu;
+		currentLevel = &menu;
+		break;
 	case Game:
-		game.draw(window);
+		currentState = Levels::Game;
+		currentLevel = &game;
 		break;
 	}
 }

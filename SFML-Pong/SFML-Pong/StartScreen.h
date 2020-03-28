@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "GameLevel.h"
-#include "GameState.h"
 
 
 class StartScreen: public GameLevel
@@ -11,7 +10,7 @@ public:
 	StartScreen();
 	~StartScreen();
 
-	void handleEvents(const sf::Event& event, sf::RenderWindow& window);
+	Levels handleEvents(const sf::Event& event, sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 
 	void setFont(const sf::Font& font);

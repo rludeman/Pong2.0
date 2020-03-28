@@ -2,11 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "GameState.h"
 #include "GameLevel.h"
 #include "StartScreen.h"
 #include "PongGame.h"
-
 
 class Pong
 {
@@ -19,10 +17,13 @@ public:
 	void draw(sf::RenderWindow& window);
 
 private:
+	void changeLevel(Levels level);
+
+private:
 	// Game States/Levels
-	GameState currentState;
-	GameLevel* currentLevel;
-	StartScreen menu;	// TODO Wrap game state classes ("Levels") in class
+	Levels currentState;	// Corresponds to currentLevel
+	GameLevel* currentLevel;	// TODO couple currentState and currentLevel (propbably by doing vvthisvv)
+	StartScreen menu;	// TODO Change GameLevels objects to pointers and initialize only when they're needed
 	PongGame game;
 	
 };

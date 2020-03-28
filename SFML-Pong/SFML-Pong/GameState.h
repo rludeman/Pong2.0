@@ -1,3 +1,3 @@
 #pragma once
 
-enum GameState { Menu, Game };
+enum Levels { Menu, Game };

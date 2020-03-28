@@ -13,7 +13,7 @@ public:
 	~PongGame();
 
 	// Game loop methods
-	void handleEvents(const sf::Event& event, sf::RenderWindow& window);
+	Levels handleEvents(const sf::Event& event, sf::RenderWindow& window);
 	void update(const sf::Time deltaTime, const sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 
