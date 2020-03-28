@@ -38,7 +38,7 @@ void StartScreen::setFont(const sf::Font& font)
 	quitButton.msg.setFont(font);
 }
 
-void StartScreen::handleEvents(const sf::Event& event, sf::RenderWindow& window, GameState& currentState)
+void StartScreen::handleEvents(const sf::Event& event, sf::RenderWindow& window)
 {
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
@@ -46,7 +46,8 @@ void StartScreen::handleEvents(const sf::Event& event, sf::RenderWindow& window,
 		{
 			sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 			if (playButton.box.getGlobalBounds().contains(mousePos))
-				currentState = Game;
+				((void)0); // NO-OP
+				// currentState = Game; TODO replace state change with "GameLevel" change
 			if (quitButton.box.getGlobalBounds().contains(mousePos))
 				window.close();
 		}

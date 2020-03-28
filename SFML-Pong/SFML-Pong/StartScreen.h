@@ -1,18 +1,20 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+#include "GameLevel.h"
 #include "GameState.h"
 
 
-class StartScreen
+class StartScreen: public GameLevel
 {
 public:
 	StartScreen();
 	~StartScreen();
 
-	void setFont(const sf::Font& font);
-	void handleEvents(const sf::Event& event, sf::RenderWindow& window, GameState& currentState);
+	void handleEvents(const sf::Event& event, sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
+
+	void setFont(const sf::Font& font);
 
 private:
 	struct Button {

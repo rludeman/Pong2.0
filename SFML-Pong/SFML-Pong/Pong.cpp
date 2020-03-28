@@ -4,7 +4,6 @@
 
 Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window) : currentState(Menu), fontPtr(fontPtr) // TODO Improve game-state and global object management
 {
-	// Start Menu
 	menu.setFont(*fontPtr);
 
 	// TODO move default initialization to constructors and add setters/getters
@@ -73,10 +72,6 @@ void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window)
 
 			case sf::Keyboard::S:
 				paddleA.moveUp();
-				break;
-
-			}
-		}
 		break;
 	}
 }
@@ -86,10 +81,7 @@ void Pong::update(sf::Time deltaTime, const sf::RenderWindow & window) // TODO i
 	ball.update(deltaTime, window, paddleA, paddleB);
 	ai.udpate(ball);
 	paddleA.update(deltaTime, window);
-	paddleB.update(deltaTime, window);
-	
-	if (checkScore(ball, window))
-		reset(window);
+	game.update(deltaTime, window);
 }
 
 void Pong::draw(sf::RenderWindow & window) // TODO make components 'drawable' so we can "window.draw(game)"
@@ -137,9 +129,8 @@ bool Pong::checkScore(const Ball& ball, const sf::RenderWindow& window)
 		return true;
 	}
 	if (ball.getPosition().x > window.getSize().x)
-	{
 		++scoreA;
-		return true;
+		game.draw(window);
+		break;
 	}
-	return false;
 }
