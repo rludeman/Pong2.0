@@ -10,10 +10,10 @@ public:
 	StartScreen();
 	~StartScreen();
 
+	bool init();
+
 	Levels handleEvents(const sf::Event& event, sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
-
-	void setFont(const sf::Font& font);
 
 private:
 	struct Button {
@@ -21,6 +21,7 @@ private:
 		sf::Text msg;
 	};
 
+	sf::Font font;
 	sf::Text title;
 	Button playButton;
 	Button quitButton;

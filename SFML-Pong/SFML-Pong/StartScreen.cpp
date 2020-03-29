@@ -1,11 +1,28 @@
+#include <iostream>
 #include "StartScreen.h"
-#include "Pong.h"
 
-StartScreen::StartScreen() // TODO layout components better. Consider creating class for buttons
+StartScreen::StartScreen() 
 {
+}
+
+
+StartScreen::~StartScreen()
+{
+}
+
+bool StartScreen::init() // TODO layout components better. Consider creating class for buttons
+{
+	// Load Font
+	if (!font.loadFromFile("FreeSansBold.ttf"))
+	{
+		std::cout << "Failed to init StartScreen: Failed to load font." << std::endl;
+		return false;
+	}
+
 	// Title
 	title.setCharacterSize(50);
 	title.setPosition(10, 10);
+	title.setFont(font);
 	title.setString("SFML-Pong!");
 
 	// Play Button
@@ -15,6 +32,7 @@ StartScreen::StartScreen() // TODO layout components better. Consider creating c
 	playButton.box.setOutlineThickness(2);
 	playButton.msg.setCharacterSize(40);
 	playButton.msg.setPosition(10, 70);
+	playButton.msg.setFont(font);
 	playButton.msg.setString("Play");
 
 	// Quit Button
@@ -24,19 +42,10 @@ StartScreen::StartScreen() // TODO layout components better. Consider creating c
 	quitButton.box.setOutlineThickness(2);
 	quitButton.msg.setCharacterSize(40);
 	quitButton.msg.setPosition(10, 130);
-	quitButton.msg.setString("Quit");
-}
-
-
-StartScreen::~StartScreen()
-{
-}
-
-void StartScreen::setFont(const sf::Font& font) 
-{ 
-	title.setFont(font); 
-	playButton.msg.setFont(font);
 	quitButton.msg.setFont(font);
+	quitButton.msg.setString("Quit");
+
+	return true;
 }
 
 Levels StartScreen::handleEvents(const sf::Event& event, sf::RenderWindow& window)

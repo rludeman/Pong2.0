@@ -4,11 +4,11 @@
 
 Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window)
 {
-	menu.setFont(*fontPtr);	// TODO handle fonts/assets more uniformly
 	game.init(fontPtr, window);
 
 	// Initialize game state
 	currentState = Levels::Menu;
+	menu.init();
 	currentLevel = &menu;
 }
 
