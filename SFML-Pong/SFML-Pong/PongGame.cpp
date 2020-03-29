@@ -1,3 +1,4 @@
+#include <iostream>
 #include "PongGame.h"
 
 
@@ -64,7 +65,7 @@ void PongGame::update(const sf::Time deltaTime, const sf::RenderWindow& window)
 
 void PongGame::draw(sf::RenderWindow & window)
 {
-	sf::Text score(std::to_string(scoreA) + " | " + std::to_string(scoreB), *fontPtr, 40);
+	sf::Text score(std::to_string(scoreA) + " | " + std::to_string(scoreB), font, 40);
 	window.draw(score);
 	window.draw(ball);
 	window.draw(paddleA);
@@ -81,9 +82,14 @@ void PongGame::draw(sf::RenderWindow & window)
 	}
 }
 
-void PongGame::init(const sf::Font* fontPtr, const sf::RenderWindow & window)
+bool PongGame::init(const sf::RenderWindow& window)
 {
-	this->fontPtr = fontPtr;
+	// Load Font
+	if (!font.loadFromFile("FreeSansBold.ttf"))
+	{
+		std::cout << "Failed to init StartScreen: Failed to load font." << std::endl;
+		return false;
+	}
 
 	// TODO move default initialization to constructors and add setters/getters
 	// Paddles
@@ -101,7 +107,7 @@ void PongGame::init(const sf::Font* fontPtr, const sf::RenderWindow & window)
 	ai.setPaddle(&paddleB);
 
 	// Winner Message
-	winMsg.setFont(*fontPtr);
+	winMsg.setFont(font);
 	winMsg.setCharacterSize(100);
 	winMsg.setPosition(200, 200);
 }

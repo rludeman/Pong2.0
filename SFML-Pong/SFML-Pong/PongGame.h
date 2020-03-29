@@ -18,12 +18,12 @@ public:
 	void draw(sf::RenderWindow& window);
 
 	// Helper methods for game
-	void init(const sf::Font* fontPtr, const sf::RenderWindow& window);
+	bool init(const sf::RenderWindow& window);
 	void reset(const sf::RenderWindow& window);
 	bool checkScore(const Ball& ball, const sf::RenderWindow& window);
 
 private:
-	const sf::Font* fontPtr;
+	sf::Font font;
 	int scoreA;			// TODO wrap scoreboard in class
 	int scoreB;
 	AIController ai;

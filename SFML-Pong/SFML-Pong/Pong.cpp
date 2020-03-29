@@ -4,7 +4,7 @@
 
 Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window)
 {
-	game.init(fontPtr, window);
+	game.init(window);
 
 	// Initialize game state
 	currentState = Levels::Menu;
