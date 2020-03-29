@@ -8,7 +8,7 @@ Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window)
 
 	// Initialize game state
 	currentState = Levels::Menu;
-	menu.init();
+	menu.init(window);
 	currentLevel = &menu;
 }
 

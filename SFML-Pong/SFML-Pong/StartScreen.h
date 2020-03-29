@@ -10,7 +10,7 @@ public:
 	StartScreen();
 	~StartScreen();
 
-	bool init();
+	bool init(const sf::RenderWindow& window);
 
 	Levels handleEvents(const sf::Event& event, sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
