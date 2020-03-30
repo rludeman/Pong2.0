@@ -2,14 +2,11 @@
 #include "Pong.h"
 
 
-Pong::Pong(const sf::Font* fontPtr, const sf::RenderWindow& window)
+Pong::Pong(const sf::RenderWindow& window)
 {
-	game.init(window);
-
 	// Initialize game state
-	currentState = Levels::Menu;
-	menu.init(window);
-	currentLevel = &menu;
+	if (!changeLevel(Levels::Menu, window))
+		throw(std::exception("Failed to initialize game."));
 }
 
 Pong::~Pong()
@@ -21,7 +18,7 @@ void Pong::handleEvents(const sf::Event & event, sf::RenderWindow & window)
 	Levels nextState;
 	nextState = currentLevel->handleEvents(event, window);
 	if (nextState != currentState)
-		changeLevel(nextState);
+		changeLevel(nextState, window);
 }
 
 void Pong::update(sf::Time deltaTime, const sf::RenderWindow& window) // TODO implement physics/collisions
@@ -34,17 +31,23 @@ void Pong::draw(sf::RenderWindow & window) // TODO make components 'drawable' so
 	currentLevel->draw(window);
 }
 
-void Pong::changeLevel(Levels level)
+bool Pong::changeLevel(Levels level, const sf::RenderWindow& window)
 {
+	bool result = false;
 	switch (level)
-	{	// TODO include initialization/destruction with level switch
+	{
 	case Menu:
 		currentState = Levels::Menu;
-		currentLevel = &menu;
+		currentLevel.reset(new StartScreen());
+		result = currentLevel->init(window);			
 		break;
 	case Game:
 		currentState = Levels::Game;
-		currentLevel = &game;
+		currentLevel.reset(new PongGame());
+		result = currentLevel->init(window);
 		break;
 	}
+	if (!result)
+		std::cout << "Failed to load level: " << level << std::endl; // TODO overwrite << operator for Levels enum
+	return result;
 }

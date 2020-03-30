@@ -72,7 +72,7 @@ void PongGame::draw(sf::RenderWindow & window)
 	window.draw(paddleB);
 	if (scoreA >= 5)
 	{
-		winMsg.setString("You Win!"); // TODO End and reset game (score) with winning
+		winMsg.setString("You Win!"); // TODO End game with winning
 		window.draw(winMsg);
 	}
 	if (scoreB >= 5)
@@ -87,11 +87,10 @@ bool PongGame::init(const sf::RenderWindow& window)
 	// Load Font
 	if (!font.loadFromFile("FreeSansBold.ttf"))
 	{
-		std::cout << "Failed to init StartScreen: Failed to load font." << std::endl;
+		std::cout << "Failed to load font." << std::endl;
 		return false;
 	}
 
-	// TODO move default initialization to constructors and add setters/getters
 	// Paddles
 	paddleA.setSize(sf::Vector2f(10, 100));
 	paddleB.setSize(sf::Vector2f(10, 100));
@@ -110,6 +109,8 @@ bool PongGame::init(const sf::RenderWindow& window)
 	winMsg.setFont(font);
 	winMsg.setCharacterSize(100);
 	winMsg.setPosition(200, 200);
+
+	return true;
 }
 
 void PongGame::reset(const sf::RenderWindow & window)

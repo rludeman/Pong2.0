@@ -15,7 +15,7 @@ bool StartScreen::init(const sf::RenderWindow& window) // TODO layout components
 	// Load Font
 	if (!font.loadFromFile("FreeSansBold.ttf"))
 	{
-		std::cout << "Failed to init StartScreen: Failed to load font." << std::endl;
+		std::cout << "Failed to load font." << std::endl;
 		return false;
 	}
 
@@ -57,7 +57,6 @@ Levels StartScreen::handleEvents(const sf::Event& event, sf::RenderWindow& windo
 			sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 			if (playButton.box.getGlobalBounds().contains(mousePos))
 				return Levels::Game;
-				// currentState = Game; TODO replace state change with "GameLevel" change
 			if (quitButton.box.getGlobalBounds().contains(mousePos))
 				window.close();
 		}

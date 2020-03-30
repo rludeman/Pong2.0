@@ -9,7 +9,7 @@
 class Pong
 {
 public:
-	Pong(const sf::Font* fontPtr, const sf::RenderWindow& window);
+	Pong(const sf::RenderWindow& window);
 	~Pong();
 
 	void handleEvents(const sf::Event& event, sf::RenderWindow& window);
@@ -17,14 +17,11 @@ public:
 	void draw(sf::RenderWindow& window);
 
 private:
-	void changeLevel(Levels level);
+	bool changeLevel(Levels level, const sf::RenderWindow& window);
 
 private:
-	// Game States/Levels
-	Levels currentState;	// Corresponds to currentLevel
-	GameLevel* currentLevel;	// TODO couple currentState and currentLevel (propbably by doing vvthisvv)
-	StartScreen menu;	// TODO Change GameLevels objects to pointers and initialize only when they're needed
-	PongGame game;
-	
+	// Current Level/State
+	Levels currentState;
+	std::unique_ptr<GameLevel> currentLevel;
 };
 

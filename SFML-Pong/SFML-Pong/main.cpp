@@ -12,15 +12,8 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(800,600), "SFML-Pong");
 	window.setKeyRepeatEnabled(false);
 
-	// Load shared assets
-	sf::Font font;	// TODO create class for handling assets
-	if (!font.loadFromFile("FreeSansBold.ttf"))
-	{
-		std::cout << "Failed to load font." << std::endl;
-		return 1;
-	}
-
-	Pong game(&font, window);
+	// Load game
+	Pong game(window);
 	
 	// Instantiate loop objects
 	sf::Clock loopClock;
