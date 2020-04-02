@@ -65,16 +65,15 @@ void PongGame::update(const sf::Time deltaTime, const sf::RenderWindow& window)
 
 void PongGame::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	sf::Text score(std::to_string(scoreA) + " | " + std::to_string(scoreB), font, 40);
-	target.draw(score);
+	target.draw(scoreboard);
 	target.draw(ball);
 	target.draw(paddleA);
 	target.draw(paddleB);
-	if (scoreA >= 5)
+	if (scoreboard.getA() >= 3)
 	{
 		target.draw(winMsg);
 	}
-	if (scoreB >= 5)
+	if (scoreboard.getB() >= 3)
 	{
 		target.draw(loseMsg);
 	}
@@ -103,6 +102,9 @@ bool PongGame::init(const sf::RenderWindow& window)
 	// AI Controller
 	ai.setPaddle(&paddleB);
 
+	// Scoreboard
+	scoreboard.init();
+
 	// Winner/Loser Messages
 	winMsg.setFont(font);
 	winMsg.setCharacterSize(100);
@@ -128,12 +130,12 @@ bool PongGame::checkScore(const Ball & ball, const sf::RenderWindow & window)
 {
 	if (ball.getPosition().x < 0.f)
 	{
-		++scoreB;
+		scoreboard.incrementB();
 		return true;
 	}
 	if (ball.getPosition().x > window.getSize().x)
 	{
-		++scoreA;
+		scoreboard.incrementA();
 		return true;
 	}
 	return false;

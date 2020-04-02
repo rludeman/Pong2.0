@@ -4,6 +4,7 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "AIController.h"
+#include "Scoreboard.h"
 
 
 class PongGame: public GameLevel
@@ -24,9 +25,8 @@ public:
 
 private:
 	sf::Font font;
-	int scoreA;			// TODO wrap scoreboard in class
-	int scoreB;
 	AIController ai;
+	Scoreboard scoreboard;
 	sf::Text winMsg;	// TODO figure out way to better manage on the fly assets
 	sf::Text loseMsg;
 	Ball ball;
