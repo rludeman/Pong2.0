@@ -64,11 +64,11 @@ Levels StartScreen::handleEvents(const sf::Event& event, sf::RenderWindow& windo
 	return Levels::Menu;
 }
 
-void StartScreen::draw(sf::RenderWindow& window) // TODO make 'drawable'
+void StartScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	window.draw(title);
-	window.draw(playButton.box);
-	window.draw(playButton.msg);
-	window.draw(quitButton.box);
-	window.draw(quitButton.msg);
+	target.draw(title);
+	target.draw(playButton.box);
+	target.draw(playButton.msg);
+	target.draw(quitButton.box);
+	target.draw(quitButton.msg);
 }

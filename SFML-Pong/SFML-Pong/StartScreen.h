@@ -10,10 +10,10 @@ public:
 	StartScreen();
 	~StartScreen();
 
-	bool init(const sf::RenderWindow& window);
+	virtual bool init(const sf::RenderWindow& window);
 
-	Levels handleEvents(const sf::Event& event, sf::RenderWindow& window);
-	void draw(sf::RenderWindow& window);
+	virtual Levels handleEvents(const sf::Event& event, sf::RenderWindow& window);
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
 	struct Button {

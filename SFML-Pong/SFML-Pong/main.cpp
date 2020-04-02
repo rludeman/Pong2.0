@@ -42,7 +42,7 @@ int main()
 		game.update(deltaTime, window);
 
 		// Draw game objects to buffer
-		game.draw(window);
+		window.draw(game);
 
 		// Render buffer to window
 		window.display();

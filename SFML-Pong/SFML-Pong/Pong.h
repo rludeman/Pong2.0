@@ -6,7 +6,7 @@
 #include "StartScreen.h"
 #include "PongGame.h"
 
-class Pong
+class Pong: public sf::Drawable
 {
 public:
 	Pong(const sf::RenderWindow& window);
@@ -14,7 +14,7 @@ public:
 
 	void handleEvents(const sf::Event& event, sf::RenderWindow& window);
 	void update(sf::Time deltaTime, const sf::RenderWindow& window);
-	void draw(sf::RenderWindow& window);
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
 	bool changeLevel(Levels level, const sf::RenderWindow& window);

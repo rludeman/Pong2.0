@@ -26,9 +26,9 @@ void Pong::update(sf::Time deltaTime, const sf::RenderWindow& window) // TODO im
 	currentLevel->update(deltaTime, window);
 }
 
-void Pong::draw(sf::RenderWindow & window) // TODO make components 'drawable' so we can "window.draw(game)"
+void Pong::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 {
-	currentLevel->draw(window);
+	target.draw(*currentLevel);
 }
 
 bool Pong::changeLevel(Levels level, const sf::RenderWindow& window)

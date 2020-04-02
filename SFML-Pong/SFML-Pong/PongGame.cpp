@@ -63,22 +63,20 @@ void PongGame::update(const sf::Time deltaTime, const sf::RenderWindow& window)
 		reset(window);
 }
 
-void PongGame::draw(sf::RenderWindow & window)
+void PongGame::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	sf::Text score(std::to_string(scoreA) + " | " + std::to_string(scoreB), font, 40);
-	window.draw(score);
-	window.draw(ball);
-	window.draw(paddleA);
-	window.draw(paddleB);
+	target.draw(score);
+	target.draw(ball);
+	target.draw(paddleA);
+	target.draw(paddleB);
 	if (scoreA >= 5)
 	{
-		winMsg.setString("You Win!"); // TODO End game with winning
-		window.draw(winMsg);
+		target.draw(winMsg);
 	}
 	if (scoreB >= 5)
 	{
-		winMsg.setString("You Lose");
-		window.draw(winMsg);
+		target.draw(loseMsg);
 	}
 }
 
@@ -105,10 +103,15 @@ bool PongGame::init(const sf::RenderWindow& window)
 	// AI Controller
 	ai.setPaddle(&paddleB);
 
-	// Winner Message
+	// Winner/Loser Messages
 	winMsg.setFont(font);
 	winMsg.setCharacterSize(100);
 	winMsg.setPosition(200, 200);
+	winMsg.setString("You Win!");
+	loseMsg.setFont(font);
+	loseMsg.setCharacterSize(100);
+	loseMsg.setPosition(200, 200);
+	loseMsg.setString("You Lose");
 
 	return true;
 }
