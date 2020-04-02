@@ -10,7 +10,7 @@ StartScreen::~StartScreen()
 {
 }
 
-bool StartScreen::init(const sf::RenderWindow& window) // TODO layout components better. Consider creating class for buttons
+bool StartScreen::init(const sf::RenderWindow& window) 
 {
 	// Load Font
 	if (!font.loadFromFile("FreeSansBold.ttf"))

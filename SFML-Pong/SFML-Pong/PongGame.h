@@ -27,7 +27,7 @@ private:
 	sf::Font font;
 	AIController ai;
 	Scoreboard scoreboard;
-	sf::Text winMsg;	// TODO figure out way to better manage on the fly assets
+	sf::Text winMsg;	
 	sf::Text loseMsg;
 	Ball ball;
 	Paddle paddleA;
